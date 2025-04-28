@@ -32,8 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (response.ok) {
-                // Success
-                showStatus('Your research is being generated! You will receive the document when it\'s ready.', 'success');
+                const data = await response.json(); // Parse JSON response
+                // Success: Show message with document URL
+                showStatus(
+                    'Your research is being generated! View your document:',
+                    'success',
+                    data.documentUrl // Pass the documentUrl from response
+                );
                 researchForm.reset();
             } else {
                 // Server error
@@ -48,8 +53,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    function showStatus(message, type) {
-        statusElement.textContent = message;
+    function showStatus(message, type, documentUrl = null) {
+        // Clear previous content
+        statusElement.innerHTML = '';
+        
+        // Create message element
+        const messageElement = document.createElement('p');
+        messageElement.textContent = message;
+        statusElement.appendChild(messageElement);
+        
+        // If documentUrl is provided, add a clickable link
+        if (documentUrl) {
+            const linkElement = document.createElement('a');
+            linkElement.href = documentUrl;
+            linkElement.textContent = 'Open Document';
+            linkElement.target = '_blank'; // Open in new tab
+            linkElement.rel = 'noopener noreferrer'; // Security best practice
+            linkElement.className = 'status-link'; // For styling
+            statusElement.appendChild(linkElement);
+        }
+        
+        // Set status classes and display
         statusElement.className = `status ${type}`;
         statusElement.style.display = 'block';
         
