@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loaderElement = document.getElementById('loader');
     
     // The URL of your n8n webhook
-    const webhookUrl = "https://saumye.app.n8n.cloud/webhook/research"; // Replace with your actual webhook URL
+    const webhookUrl = 'YOUR_N8N_WEBHOOK_URL_HERE'; // Replace with your actual webhook URL
     
     researchForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -76,6 +76,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+function checkStatus(jobId) {
+    const statusCheckInterval = setInterval(async () => {
+        try {
+            const response = await fetch(`YOUR_STATUS_ENDPOINT?id=${jobId}`);
+            const data = await response.json();
+            
+            if (data.status === 'complete') {
+                showStatus(`Research complete! Download your document: <a href="${data.downloadUrl}">Click here</a>`, 'success');
+                clearInterval(statusCheckInterval);
+            } else if (data.status === 'error') {
+                showStatus('An error occurred during research generation', 'error');
+                clearInterval(statusCheckInterval);
+            } else {
+                showStatus(`Research in progress: ${data.progress}% complete`, 'processing');
+            }
+        } catch (error) {
+            console.error('Error checking status:', error);
+        }
+    }, 5000); // Check every 5 seconds
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const researchForm = document.getElementById('researchForm');
     const statusElement = document.getElementById('status');
