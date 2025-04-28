@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Agent Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Research Agent Portal</h1>
+            <p class="tagline">Generate comprehensive research on any topic</p>
+        </header>
+        
+        <main>
+            <section class="research-form-container">
+                <h2>Submit Research Topic</h2>
+                <form id="researchForm">
+                    <div class="form-group">
+                        <label for="topic">Topic of Research:</label>
+                        <input type="text" id="topic" name="topic" placeholder="Effects of Instagram Usage on Sleep Patterns of Teenagers" required>
+                        <p class="help-text">Enter a specific topic you'd like to research</p>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Generate Research</span>
+                        <span class="btn-loader" id="loader"></span>
+                    </button>
+                </form>
+            </section>
+            
+            <section class="status-container">
+                <div id="status" class="status"></div>
+            </section>
+            
+            <section class="how-it-works">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Submit Topic</h3>
+                            <p>Enter your research topic in the form above</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>AI Processing</h3>
+                            <p>Our AI system creates targeted search queries and conducts deep research</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Document Creation</h3>
+                            <p>Research is compiled into a comprehensive document</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Research Agent. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
