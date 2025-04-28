@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loaderElement = document.getElementById('loader');
     
     // The URL of your n8n webhook
-    const webhookUrl = "https://saumye.app.n8n.cloud/webhook-test/research"; // Replace with your actual webhook URL
+    const webhookUrl = "https://saumye.app.n8n.cloud/webhook/research"; // Replace with your actual webhook URL
     
     researchForm.addEventListener('submit', async function(e) {
         e.preventDefault();
