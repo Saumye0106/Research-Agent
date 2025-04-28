@@ -54,36 +54,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     function showStatus(message, type, documentUrl = null) {
-        // Clear previous content
-        statusElement.innerHTML = '';
-        
-        // Create message element
-        const messageElement = document.createElement('p');
-        messageElement.textContent = message;
-        statusElement.appendChild(messageElement);
-        
-        // If documentUrl is provided, add a clickable link
-        if (documentUrl) {
-            const linkElement = document.createElement('a');
-            linkElement.href = documentUrl;
-            linkElement.textContent = 'Open Document';
-            linkElement.target = '_blank'; // Open in new tab
-            linkElement.rel = 'noopener noreferrer'; // Security best practice
-            linkElement.className = 'status-link'; // For styling
-            statusElement.appendChild(linkElement);
+    // Clear previous content
+    statusElement.innerHTML = '';
+
+    // Create message element
+    const messageElement = document.createElement('p');
+    messageElement.textContent = message;
+    statusElement.appendChild(messageElement);
+
+    // If documentUrl is provided, add a clickable link
+    if (documentUrl) {
+        // Ensure documentUrl is a valid absolute URL
+        let cleanUrl = documentUrl;
+        if (cleanUrl.startsWith('=')) {
+            cleanUrl = cleanUrl.substring(1); // Remove leading '=' if present
         }
-        
-        // Set status classes and display
-        statusElement.className = `status ${type}`;
-        statusElement.style.display = 'block';
-        
-        // Auto-hide success messages after 10 seconds
-        if (type === 'success') {
-            setTimeout(() => {
-                statusElement.style.display = 'none';
-            }, 10000);
+        if (!cleanUrl.startsWith('http')) {
+            cleanUrl = 'https://' + cleanUrl; // Ensure it starts with https://
         }
+
+        const linkElement = document.createElement('a');
+        linkElement.href = cleanUrl; // Use the cleaned URL
+        linkElement.textContent = 'Open Document';
+        linkElement.target = '_blank'; // Open in new tab
+        linkElement.rel = 'noopener noreferrer'; // Security best practice
+        linkElement.className = 'status-link'; // For styling
+        statusElement.appendChild(linkElement);
     }
+
+    // Set status classes and display
+    statusElement.className = `status ${type}`;
+    statusElement.style.display = 'block';
+
+    // Auto-hide success messages after 10 seconds
+    if (type === 'success') {
+        setTimeout(() => {
+            statusElement.style.display = 'none';
+        }, 10000);
+    }
+}
     
     function showLoading(isLoading) {
         const submitBtn = researchForm.querySelector('.submit-btn');
